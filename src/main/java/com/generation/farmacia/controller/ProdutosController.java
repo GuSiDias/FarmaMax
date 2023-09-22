@@ -1,6 +1,8 @@
 package com.generation.farmacia.controller;
 
+import com.generation.farmacia.model.Categoria;
 import com.generation.farmacia.model.Produtos;
+import com.generation.farmacia.repository.CategoriaRepository;
 import com.generation.farmacia.repository.ProdutosRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ProdutosController {
 
     @Autowired
     private ProdutosRepository produtosRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @GetMapping
     public ResponseEntity<List<Produtos>> getAll(){
@@ -39,17 +44,25 @@ public class ProdutosController {
 
     @PostMapping
     public ResponseEntity<Produtos> post(@Valid @RequestBody Produtos produtos){
-        return ResponseEntity.status(HttpStatus.CREATED)
+        if (categoriaRepository.existsById(produtos.getCategoria().getId()))
+            return ResponseEntity.status(HttpStatus.CREATED)
                 .body(produtosRepository.save(produtos));
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe" , null);
     }
 
     @PutMapping
-    public ResponseEntity<Produtos> put(@Valid @RequestBody Produtos produtos){
-        return produtosRepository.findById(produtos.getId())
-                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
-                        .body(produtosRepository.save(produtos)))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<Produtos> put(@Valid @RequestBody Produtos produtos) {
+
+        if (produtosRepository.existsById(produtos.getId())){
+            if (categoriaRepository.existsById(produtos.getCategoria().getId()))
+                return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(produtosRepository.save(produtos));
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe", null);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){

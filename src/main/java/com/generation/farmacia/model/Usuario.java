@@ -1,13 +1,14 @@
 package com.generation.farmacia.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -18,21 +19,23 @@ public class Usuario {
     private Long id;
 
     @NotBlank(message = "O atributo name é obrigatorio")
-    private String name;
+    private String nome;
 
+    @Schema(example = "email@email.com.br")
     @Email(message = "O atributo username tem que receber um e-mail válido")
     @NotBlank(message = "O atributo username é obrigatorio")
-    private String username;
+    private String usuario;
 
     @NotBlank(message = "O atributo password é obrigatorio")
     @Size(min = 8, message = "O password tem que ser no mínimo 8 caracteres")
-    private Double password;
+    private String senha;
 
-    @NotNull(message = "O atributo birth não pode ser nulo")
-    private Date birth;
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    @NotNull(message = "Insira sua data de nascimento")
+    private Date nascimento;
 
     @Size(max = 4000,message = "O link da photo inserida não pode passar dos 4000 caracteres")
-    private String photo;
+    private String foto;
 
     public Long getId() {
         return id;
@@ -42,43 +45,43 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public Double getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(Double password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public Date getBirth() {
-        return birth;
+    public Date getNascimento() {
+        return nascimento;
     }
 
-    public void setBirth(Date birth) {
-        this.birth = birth;
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getFoto() {
+        return foto;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

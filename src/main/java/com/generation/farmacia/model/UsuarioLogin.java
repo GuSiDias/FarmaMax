@@ -1,15 +1,13 @@
 package com.generation.farmacia.model;
 
-import java.util.Date;
 
 public class UsuarioLogin {
 
     private Long id;
-    private String name;
-    private String username;
-    private String password;
-    private Date birth;
-    private String photo;
+    private String nome;
+    private String usuario;
+    private String senha;
+    private String foto;
     private String token;
 
     public Long getId() {
@@ -20,44 +18,37 @@ public class UsuarioLogin {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public Date getBirth() {
-        return birth;
+
+    public String getFoto() {
+        return foto;
     }
 
-    public void setBirth(Date birth) {
-        this.birth = birth;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getToken() {

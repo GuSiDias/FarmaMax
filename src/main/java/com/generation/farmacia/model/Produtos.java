@@ -22,7 +22,7 @@ public class Produtos {
     private String descricao;
 
      @NotNull(message = "O atributo preço não pode ser nulo")
-    private Double preco;
+    private double preco;
 
     @NotNull(message = "O atributo estoque não pode ser nulo")
     private int estoque;
